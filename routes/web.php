@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Auth;
 
 
 
-Auth::routes();
+Auth::routes(['register' => false]);
 
 Route::middleware('auth')->namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     Route::get('/', 'HomeController@index')->name('home');
