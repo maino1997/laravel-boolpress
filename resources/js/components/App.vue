@@ -1,23 +1,29 @@
 <template>
-  <div class="container">
-    <div class="row justify-content-center">
-      <div class="col-md-8">
-        <div class="card">
-          <div class="card-header">Example Component</div>
-
-          <div class="card-body">
-            <h1>Sito in Costruzione</h1>
-          </div>
-        </div>
-      </div>
-    </div>
+  <div>
+    <PostsList :post="post" v-for="post in posts" :key="post.id" />
   </div>
 </template>
 
 <script>
+import PostsList from "./posts/PostsList.vue";
 export default {
+  components: {
+    PostsList,
+  },
+  data() {
+    return {
+      posts: [],
+    };
+  },
+  methods: {
+    getPosts() {
+      axios.get("http://Localhost:8000/api/posts").then((res) => {
+        this.posts = res.data;
+      });
+    },
+  },
   mounted() {
-    console.log("Component mounted.");
+    this.getPosts();
   },
 };
 </script>
