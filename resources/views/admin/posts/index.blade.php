@@ -3,12 +3,12 @@
 @section('content')
     @include('includes.alert')
     <div class="container text-center">
-        <div class="row justify-content-center">
+        <div class="row ">
             <div class="col-md-8">
                 <header>
                     <h1>I miei post:</h1>
                 </header>
-                <div class="d-flex justify-content-end">
+                <div class="d-flex">
                     <a class="btn btn-primary" href="{{ route('admin.posts.create') }}">Crea un Post</a>
                 </div>
                 <table class="table">
@@ -16,11 +16,12 @@
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col">Titolo</th>
-                            <th scope="col">Contenuto</th>
+                            <th scope="col" style="width:50px">Contenuto</th>
                             <th scope="col">Immagine</th>
                             <th scope="col">Argomento</th>
                             <th scope="col">Autore</th>
                             <th scope="col">Tags</th>
+                            <th scope="col">Stato</th>
                             <th scope="col">Azioni</th>
                         </tr>
                     </thead>
@@ -28,10 +29,10 @@
                         @forelse ($posts as $post)
                             <tr>
                                 <th scope="row">{{ $post->id }}</th>
-                                <td>{{ $post->title }}</td>
-                                <td>{{ $post->content }}</td>
-                                <td><img src="{{ asset("storage/$post->image") }}" alt="{{ $post->image }}" width='100'
-                                        class='img-fluid'>
+                                <td width="40%">{{ $post->title }}</td>
+                                <td width="40%">{{ $post->content }}</td>
+                                <td width="40%"><img src="{{ asset("storage/$post->image") }}" alt="{{ $post->image }}"
+                                        width='100' class='img-fluid'>
                                 </td>
                                 <td>
                                     @if ($post->category)
@@ -55,6 +56,18 @@
                                                 class="badge badge-pill badge-{{ $tag->color }}">{{ $tag->name }}</span>
                                         </a>
                                     @endforeach
+                                </td>
+                                <td>
+                                    <form action="{{ route('admin.posts.toggle', $post->id) }}" method="POST">
+                                        @method(
+                                        'PATCH'
+                                        )
+                                        @csrf
+                                        <button type="submit" class="btn btn-outline">
+                                            <span
+                                                class="fa-solid text-{{ $post->is_published ? 'success' : 'danger' }} {{ $post->is_published ? 'fa-toggle-on' : 'fa-toggle-off' }}">{{ $post->is_published ? 'pubblicato' : 'non pubblicato' }}</span>
+                                        </button>
+                                    </form>
                                 </td>
                                 <td><a class="btn btn-primary"
                                         href="{{ route('admin.posts.show', $post->id) }}">Dettaglio</a></td>
