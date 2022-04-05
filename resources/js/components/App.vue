@@ -1,12 +1,12 @@
 <template>
   <div>
     <Loader v-if="isLoaded" />
-    <PostsList />
+
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-import PostsList from "./posts/PostsList.vue";
 import Loader from "./Loader.vue";
 export default {
   components: {
