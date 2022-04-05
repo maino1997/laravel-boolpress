@@ -2045,7 +2045,7 @@ __webpack_require__.r(__webpack_exports__);
     getPosts: function getPosts() {
       var _this = this;
 
-      axios.get("http://Localhost:8000/api/posts/" + this.$route.params.id).then(function (res) {
+      axios.get("http://localhost:8000/api/posts/5").then(function (res) {
         _this.post = res.data;
       })["catch"](function (err) {
         console.log(err);
@@ -2053,6 +2053,9 @@ __webpack_require__.r(__webpack_exports__);
         _this.isLoaded = false;
       });
     }
+  },
+  mounted: function mounted() {
+    this.getPosts();
   }
 });
 
@@ -38497,7 +38500,7 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return !_vm.post ? _c("PostCard", { attrs: { post: _vm.post } }) : _vm._e()
+  return _vm.post ? _c("PostCard", { attrs: { post: _vm.post } }) : _vm._e()
 }
 var staticRenderFns = []
 render._withStripped = true

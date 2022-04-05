@@ -1,5 +1,5 @@
 <template>
-  <PostCard v-if="!post" :post="post" />
+  <PostCard v-if="post" :post="post" />
 </template>
 
 <script>
@@ -19,7 +19,7 @@ export default {
   methods: {
     getPosts() {
       axios
-        .get("http://Localhost:8000/api/posts/" + this.$route.params.id)
+        .get("http://localhost:8000/api/posts/5")
         .then((res) => {
           this.post = res.data;
         })
@@ -30,6 +30,9 @@ export default {
           this.isLoaded = false;
         });
     },
+  },
+  mounted() {
+    this.getPosts();
   },
 };
 </script>
