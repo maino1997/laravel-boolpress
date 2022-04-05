@@ -18,7 +18,7 @@
             :to="{
               name: 'post-detail',
               params: {
-                id: post.id,
+                slug: post.slug,
               },
             }"
           >

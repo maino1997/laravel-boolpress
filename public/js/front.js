@@ -38464,7 +38464,7 @@ var render = function () {
                   to: {
                     name: "post-detail",
                     params: {
-                      id: _vm.post.id,
+                      slug: _vm.post.slug,
                     },
                   },
                 },
@@ -54460,7 +54460,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     path: '/posts',
     component: _components_posts_PostsList_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
   }, {
-    path: '/posts/:id',
+    path: '/posts/:slug',
     component: _components_posts_PostDetail_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
     name: 'post-detail'
   }]

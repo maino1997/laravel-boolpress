@@ -15,7 +15,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::where('user_id', 1)->with('user', 'category')->get();
+        $posts = Post::where('is_published', 1)->with('user', 'category')->get();
         return response()->json($posts);
     }
 
@@ -36,10 +36,10 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($slug)
     {
-        $post = Post::with(['user', 'category'])->find($id);
-        if (!$post) return response('-', 404);
+        $post = Post::where('slug', $slug)->with(['user', 'category'])->first();
+        if (!$post) return response('-Post Not Found', 404);
         return response()->json($post);
     }
 
