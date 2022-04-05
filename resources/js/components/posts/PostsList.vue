@@ -1,6 +1,7 @@
 <template>
   <div class="container">
     <div class="row">
+      <Loader v-if="isLoaded" />
       <PostCard :post="post" v-for="post in posts" :key="post.id" />
     </div>
   </div>
@@ -8,9 +9,12 @@
 
 <script>
 import PostCard from "./PostCard.vue";
+import Loader from "../Loader.vue";
+
 export default {
   components: {
     PostCard,
+    Loader,
   },
   data() {
     return {
@@ -18,6 +22,7 @@ export default {
       isLoaded: true,
     };
   },
+
   methods: {
     getPosts() {
       axios
