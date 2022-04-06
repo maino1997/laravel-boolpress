@@ -1,14 +1,19 @@
 <template>
-  <PostCard v-if="post" :post="post" />
+  <div>
+    <Loader v-if="isLoaded" />
+    <PostCard v-if="post" :post="post" />
+  </div>
 </template>
 
 <script>
 import PostCard from "./PostCard.vue";
+import Loader from "../Loader.vue";
 
 export default {
   name: "PostDetail",
   components: {
     PostCard,
+    Loader,
   },
   data() {
     return {
@@ -17,9 +22,9 @@ export default {
     };
   },
   methods: {
-    getPosts() {
+    getPost() {
       axios
-        .get("http://localhost:8000/api/posts/5")
+        .get("http://localhost:8000/api/posts/" + this.$route.params.slug)
         .then((res) => {
           this.post = res.data;
         })
@@ -32,7 +37,7 @@ export default {
     },
   },
   mounted() {
-    this.getPosts();
+    this.getPost();
   },
 };
 </script>
