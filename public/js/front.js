@@ -1988,6 +1988,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -1995,6 +2004,11 @@ __webpack_require__.r(__webpack_exports__);
   components: {
     Alert: _Alert_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
     Loader: _Loader_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
+  computed: {
+    hasError: function hasError() {
+      return Object.keys(this.errors).length;
+    }
   },
   data: function data() {
     return {
@@ -2012,12 +2026,14 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       this.isLoading = true;
-      axios.post("http://localhost:8000/api/messages", this.form).then(function (res) {
+      axios.post("http://localhost:8000/api/messag", this.form).then(function (res) {
         _this.form.mail = "";
         _this.form.message = "";
         _this.alertMessage = "Messsaggio inviato";
       })["catch"](function (err) {
-        errors = {};
+        _this.errors = {
+          error: "c'è un errore"
+        };
       }).then(function () {
         _this.isLoading = false;
       });
@@ -38460,7 +38476,7 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "alert alert-success", attrs: { role: "alert" } },
+    { class: "alert alert-" + _vm.type, attrs: { role: "alert" } },
     [_vm._v("\n  " + _vm._s(_vm.message) + "\n")]
   )
 }
@@ -38517,8 +38533,33 @@ var render = function () {
       [
         _vm.isLoading ? _c("Loader") : _vm._e(),
         _vm._v(" "),
-        _vm.alertMessage
-          ? _c("Alert", { attrs: { message: _vm.alertMessage } })
+        _vm.alertMessage || _vm.hasError
+          ? _c(
+              "Alert",
+              {
+                attrs: {
+                  message: _vm.alertMessage,
+                  type: _vm.hasError ? "danger" : "success",
+                },
+              },
+              [
+                _vm.alertMessage
+                  ? _c("div", [_vm._v(_vm._s(_vm.alertMessage))])
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.hasError
+                  ? _c(
+                      "ul",
+                      _vm._l(_vm.errors, function (value, key) {
+                        return _c("li", { key: key }, [
+                          _vm._v(_vm._s(_vm.error)),
+                        ])
+                      }),
+                      0
+                    )
+                  : _vm._e(),
+              ]
+            )
           : _vm._e(),
         _vm._v(" "),
         _c("h2", [_vm._v("Contattaci")]),

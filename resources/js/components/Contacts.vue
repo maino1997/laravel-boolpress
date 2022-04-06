@@ -2,7 +2,16 @@
   <div class="container">
     <section id="contacts">
       <Loader v-if="isLoading" />
-      <Alert :message="alertMessage" v-if="alertMessage" />
+      <Alert
+        :message="alertMessage"
+        :type="hasError ? 'danger' : 'success'"
+        v-if="alertMessage || hasError"
+      >
+        <div v-if="alertMessage">{{ alertMessage }}</div>
+        <ul v-if="hasError">
+          <li v-for="(value, key) in errors" :key="key">{{ error }}</li>
+        </ul>
+      </Alert>
       <h2>Contattaci</h2>
       <div class="form-group">
         <label for="mail">Email </label>
@@ -42,6 +51,11 @@ export default {
     Alert,
     Loader,
   },
+  computed: {
+    hasError() {
+      return Object.keys(this.errors).length;
+    },
+  },
   data() {
     return {
       isLoading: false,
@@ -57,14 +71,14 @@ export default {
     sendData() {
       this.isLoading = true;
       axios
-        .post("http://localhost:8000/api/messages", this.form)
+        .post("http://localhost:8000/api/messag", this.form)
         .then((res) => {
           this.form.mail = "";
           this.form.message = "";
           this.alertMessage = "Messsaggio inviato";
         })
         .catch((err) => {
-          errors = {};
+          this.errors = { error: "c'è un errore" };
         })
         .then(() => {
           this.isLoading = false;
