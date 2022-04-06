@@ -91,9 +91,9 @@ export default {
           })
           .catch((err) => {
             console.log(err);
-            //   this.errors = {
-            //     error: "c'è stato un errore",
-            //   };
+            this.errors = {
+              error: "c'è stato un errore",
+            };
           })
           .then(() => {
             this.isLoading = false;

@@ -2051,9 +2051,10 @@ __webpack_require__.r(__webpack_exports__);
           _this.form.message = "";
           _this.alertMessage = "Messsaggio inviato";
         })["catch"](function (err) {
-          console.log(err); //   this.errors = {
-          //     error: "c'è stato un errore",
-          //   };
+          console.log(err);
+          _this.errors = {
+            error: "c'è stato un errore"
+          };
         }).then(function () {
           _this.isLoading = false;
         });
