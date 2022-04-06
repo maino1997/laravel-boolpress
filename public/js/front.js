@@ -2004,6 +2004,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2033,19 +2038,26 @@ __webpack_require__.r(__webpack_exports__);
     sendData: function sendData() {
       var _this = this;
 
-      this.isLoading = true;
-      axios.post("http://localhost:8000/api/messag", this.form).then(function (res) {
-        _this.form.mail = "";
-        _this.form.message = "";
-        _this.alertMessage = "Messsaggio inviato";
-      })["catch"](function (err) {
-        console.log(err);
-        _this.errors = {
-          error: "c'è stato un errore"
-        };
-      }).then(function () {
-        _this.isLoading = false;
-      });
+      var errors = {};
+      if (!this.form.mail.trim()) errors.mail = "La mail è obbligatoria";
+      if (!this.form.message.trim()) errors.message = "Il testo è obbligatorio";
+      if (!this.form.mail.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) errors.mail = "La mail inserita non è valida";
+      this.errors = errors;
+
+      if (!this.hasError) {
+        this.isLoading = true;
+        axios.post("http://localhost:8000/api/messages", this.form).then(function (res) {
+          _this.form.mail = "";
+          _this.form.message = "";
+          _this.alertMessage = "Messsaggio inviato";
+        })["catch"](function (err) {
+          console.log(err); //   this.errors = {
+          //     error: "c'è stato un errore",
+          //   };
+        }).then(function () {
+          _this.isLoading = false;
+        });
+      } else {}
     }
   }
 });
@@ -38644,7 +38656,7 @@ var render = function () {
       [
         _vm.isLoading ? _c("Loader") : _vm._e(),
         _vm._v(" "),
-        _vm.alertMessage || _vm.hasError
+        _vm.alertMessage || (_vm.hasError && !_vm.isLoading)
           ? _c("Alert", {
               attrs: {
                 message: _vm.alertMessage,
@@ -38669,6 +38681,7 @@ var render = function () {
               },
             ],
             staticClass: "form-control",
+            class: { "is-invalid": _vm.errors.mail },
             attrs: { type: "email", id: "mail", placeholder: "Enter email" },
             domProps: { value: _vm.form.mail },
             on: {
@@ -38680,17 +38693,17 @@ var render = function () {
               },
             },
           }),
-          _vm._v(" "),
-          _c(
-            "small",
-            { staticClass: "form-text text-muted", attrs: { id: "emailHelp" } },
-            [_vm._v("We'll never share your email with anyone else.")]
-          ),
         ]),
+        _vm._v(" "),
+        _vm.errors.mail
+          ? _c("div", { staticClass: "invalid-feedback" }, [
+              _vm._v("\n      " + _vm._s(_vm.errors.mail) + "\n    "),
+            ])
+          : _vm._e(),
         _vm._v(" "),
         _c("div", { staticClass: "form-group" }, [
           _c("label", { attrs: { for: "exampleFormControlTextarea1" } }, [
-            _vm._v("Example textarea"),
+            _vm._v("Inserisci il testo"),
           ]),
           _vm._v(" "),
           _c("textarea", {
@@ -38703,6 +38716,7 @@ var render = function () {
               },
             ],
             staticClass: "form-control",
+            class: { "is-invalid": _vm.errors.mail },
             attrs: { id: "exampleFormControlTextarea1", rows: "3" },
             domProps: { value: _vm.form.message },
             on: {
@@ -38715,6 +38729,12 @@ var render = function () {
             },
           }),
         ]),
+        _vm._v(" "),
+        _vm.errors.message
+          ? _c("div", { staticClass: "invalid-feedback" }, [
+              _vm._v("\n      " + _vm._s(_vm.errors.message) + "\n    "),
+            ])
+          : _vm._e(),
         _vm._v(" "),
         _c("div", { staticClass: "d-flex justify-content-center" }, [
           _c(
