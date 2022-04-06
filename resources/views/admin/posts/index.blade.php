@@ -4,7 +4,7 @@
     @include('includes.alert')
     <div class="container text-center">
         <div class="row ">
-            <div class="col-md-8">
+            <div class="col">
                 <header>
                     <h1>I miei post:</h1>
                 </header>
@@ -31,8 +31,8 @@
                                 <th scope="row">{{ $post->id }}</th>
                                 <td width="40%">{{ $post->title }}</td>
                                 <td width="40%">{{ $post->content }}</td>
-                                <td width="40%"><img src="{{ asset("storage/$post->image") }}" alt="{{ $post->image }}"
-                                        width='100' class='img-fluid'>
+                                <td width="40%"><img src="{{ asset("storage/$post->image") }}" alt="thumb" width='100'
+                                        class='img-fluid'>
                                 </td>
                                 <td>
                                     @if ($post->category)

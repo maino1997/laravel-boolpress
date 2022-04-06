@@ -18,6 +18,8 @@ const router = new VueRouter({
         { path: '/posts', component: PostsList, name: 'posts' },
         { path: '/posts/:slug', component: PostDetail, name: 'post-detail' },
         { path: '/contacts', component: Contacts, name: 'contacts' }
+        //Aggiungere la rotta in 404 per errori sulle rotte
+        // { path: }
     ]
 });
 
