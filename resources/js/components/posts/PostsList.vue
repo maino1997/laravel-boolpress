@@ -19,12 +19,13 @@ export default {
   data() {
     return {
       posts: [],
-      isLoaded: true,
+      isLoaded: false,
     };
   },
 
   methods: {
     getPosts() {
+      this.isLoaded = true;
       axios
         .get("http://Localhost:8000/api/posts")
         .then((res) => {

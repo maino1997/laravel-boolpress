@@ -2280,13 +2280,14 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       posts: [],
-      isLoaded: true
+      isLoaded: false
     };
   },
   methods: {
     getPosts: function getPosts() {
       var _this = this;
 
+      this.isLoaded = true;
       axios.get("http://Localhost:8000/api/posts").then(function (res) {
         _this.posts = res.data;
       })["catch"](function (err) {
