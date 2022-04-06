@@ -6,6 +6,8 @@ Vue.use(VueRouter)
 import Homepage from './components/posts/Homepage.vue';
 import PostsList from './components/posts/PostsList.vue';
 import PostDetail from './components/posts/PostDetail.vue';
+import Contacts from './components/Contacts.vue';
+
 
 
 
