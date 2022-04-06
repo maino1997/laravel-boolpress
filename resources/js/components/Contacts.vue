@@ -6,11 +6,8 @@
         :message="alertMessage"
         :type="hasError ? 'danger' : 'success'"
         v-if="alertMessage || hasError"
+        :errors="errors"
       >
-        <div v-if="alertMessage">{{ alertMessage }}</div>
-        <ul v-if="hasError">
-          <li v-for="(value, key) in errors" :key="key">{{ error }}</li>
-        </ul>
       </Alert>
       <h2>Contattaci</h2>
       <div class="form-group">
@@ -53,7 +50,8 @@ export default {
   },
   computed: {
     hasError() {
-      return Object.keys(this.errors).length;
+      console.log("ecco lerrore", !!Object.keys(this.errors).length);
+      return !!Object.keys(this.errors).length;
     },
   },
   data() {
@@ -78,7 +76,10 @@ export default {
           this.alertMessage = "Messsaggio inviato";
         })
         .catch((err) => {
-          this.errors = { error: "c'è un errore" };
+          console.log(err);
+          this.errors = {
+            error: "c'è stato un errore",
+          };
         })
         .then(() => {
           this.isLoading = false;

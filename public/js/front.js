@@ -1914,9 +1914,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Alert",
-  props: ["message", "type"]
+  props: ["message", "type", "errors"]
 });
 
 /***/ }),
@@ -1994,9 +1997,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2007,7 +2007,8 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     hasError: function hasError() {
-      return Object.keys(this.errors).length;
+      console.log("ecco lerrore", !!Object.keys(this.errors).length);
+      return !!Object.keys(this.errors).length;
     }
   },
   data: function data() {
@@ -2031,8 +2032,9 @@ __webpack_require__.r(__webpack_exports__);
         _this.form.message = "";
         _this.alertMessage = "Messsaggio inviato";
       })["catch"](function (err) {
+        console.log(err);
         _this.errors = {
-          error: "c'è un errore"
+          error: "c'è stato un errore"
         };
       }).then(function () {
         _this.isLoading = false;
@@ -38477,7 +38479,18 @@ var render = function () {
   return _c(
     "div",
     { class: "alert alert-" + _vm.type, attrs: { role: "alert" } },
-    [_vm._v("\n  " + _vm._s(_vm.message) + "\n")]
+    [
+      _vm._v("\n  " + _vm._s(_vm.message) + "\n  "),
+      _vm.errors
+        ? _c(
+            "ul",
+            _vm._l(_vm.errors, function (value, key) {
+              return _c("li", { key: key }, [_vm._v(_vm._s(value))])
+            }),
+            0
+          )
+        : _vm._e(),
+    ]
   )
 }
 var staticRenderFns = []
@@ -38534,32 +38547,13 @@ var render = function () {
         _vm.isLoading ? _c("Loader") : _vm._e(),
         _vm._v(" "),
         _vm.alertMessage || _vm.hasError
-          ? _c(
-              "Alert",
-              {
-                attrs: {
-                  message: _vm.alertMessage,
-                  type: _vm.hasError ? "danger" : "success",
-                },
+          ? _c("Alert", {
+              attrs: {
+                message: _vm.alertMessage,
+                type: _vm.hasError ? "danger" : "success",
+                errors: _vm.errors,
               },
-              [
-                _vm.alertMessage
-                  ? _c("div", [_vm._v(_vm._s(_vm.alertMessage))])
-                  : _vm._e(),
-                _vm._v(" "),
-                _vm.hasError
-                  ? _c(
-                      "ul",
-                      _vm._l(_vm.errors, function (value, key) {
-                        return _c("li", { key: key }, [
-                          _vm._v(_vm._s(_vm.error)),
-                        ])
-                      }),
-                      0
-                    )
-                  : _vm._e(),
-              ]
-            )
+            })
           : _vm._e(),
         _vm._v(" "),
         _c("h2", [_vm._v("Contattaci")]),
