@@ -1,16 +1,17 @@
 <template>
   <div class="col-3">
     <div class="card" style="width: 18rem">
-      <h5 class="card-title" v-if="post.user">
-        {{ post.user.name }}
-      </h5>
+      <h5 class="card-title" v-if="post.user">Autore: {{ post.user.name }}</h5>
       <div class="card-body">
-        <h5 class="card-title">{{ post.title }}</h5>
+        <h5 class="card-title">Titolo: {{ post.title }}</h5>
         <p class="card-text">
           {{ post.content }}
         </p>
         <div class="cart-categories" v-if="post.category">
-          {{ post.category.name }}
+          Categoria: {{ post.category.name }}
+        </div>
+        <div v-for="tag in post.tags" :key="tag.id">
+          {{ tag.name }}
         </div>
         <div>
           <router-link
