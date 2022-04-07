@@ -2194,6 +2194,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "PostCard",
   props: ["post"]
@@ -39028,20 +39031,24 @@ var render = function () {
           ]),
           _vm._v(" "),
           _vm.post.category
-            ? _c("div", { staticClass: "cart-categories" }, [
-                _vm._v(
-                  "\n        Categoria: " +
-                    _vm._s(_vm.post.category.name) +
-                    "\n      "
-                ),
-              ])
+            ? _c(
+                "span",
+                {
+                  staticClass: "badge badge-pill",
+                  class: "badge-" + _vm.post.category.color,
+                },
+                [_vm._v(_vm._s(_vm.post.category.name))]
+              )
             : _vm._e(),
           _vm._v(" "),
           _vm._l(_vm.post.tags, function (tag) {
             return _c("div", { key: tag.id }, [
               _c(
                 "span",
-                { staticClass: "`badge badge-pill badge-${tag.color}`" },
+                {
+                  staticClass: "badge badge-pill",
+                  class: "badge-" + tag.color,
+                },
                 [_vm._v(_vm._s(tag.name))]
               ),
             ])

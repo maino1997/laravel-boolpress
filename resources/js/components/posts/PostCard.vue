@@ -7,11 +7,14 @@
         <p class="card-text">
           {{ post.content }}
         </p>
-        <div class="cart-categories" v-if="post.category">
-          Categoria: {{ post.category.name }}
-        </div>
+        <span
+          v-if="post.category"
+          class="badge badge-pill"
+          :class="`badge-${post.category.color}`"
+          >{{ post.category.name }}</span
+        >
         <div v-for="tag in post.tags" :key="tag.id">
-          <span class="`badge badge-pill badge-${tag.color}`">{{
+          <span class="badge badge-pill" :class="`badge-${tag.color}`">{{
             tag.name
           }}</span>
         </div>
