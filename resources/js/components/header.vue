@@ -1,21 +1,21 @@
 <template>
-  <ul class="navbar navbar-expand-lg navbar-dark bg-dark p-0">
+  <ul class="navbar navbar-expand-lg navbar-dark bg-dark p-3">
     <li class="nav-item">
       <router-link
-        class="nav-link active"
+        class="nav-link active link"
         :to="{
           name: 'posts',
         }"
-        >Posts</router-link
+        >POSTS</router-link
       >
     </li>
     <li class="nav-item">
       <router-link
-        class="nav-link active"
+        class="nav-link active link"
         :to="{
           name: 'contacts',
         }"
-        >Contacts</router-link
+        >CONTACTS</router-link
       >
     </li>
   </ul>
@@ -27,5 +27,12 @@ export default {
 };
 </script>
 
-<style>
+<style lang='scss' scoped>
+ul {
+  list-style: none;
+  .link {
+    color: white;
+    font-size: 1.5rem;
+  }
+}
 </style>

@@ -87,9 +87,7 @@
             </div>
         </nav> --}}
 
-        <main class="py-4">
-            <div id='root'></div>
-        </main>
+        <div id='root'></div>
     </div>
 
 </body>

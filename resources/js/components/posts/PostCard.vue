@@ -1,6 +1,6 @@
 <template>
-  <div class="col-3">
-    <div class="card" style="width: 18rem">
+  <div class="col-3 p-4">
+    <div class="carta p-2">
       <h5 class="card-title" v-if="post.user">Autore: {{ post.user.name }}</h5>
       <div class="card-body">
         <h5 class="card-title">Titolo: {{ post.title }}</h5>
@@ -11,7 +11,9 @@
           Categoria: {{ post.category.name }}
         </div>
         <div v-for="tag in post.tags" :key="tag.id">
-          {{ tag.name }}
+          <span class="`badge badge-pill badge-${tag.color}`">{{
+            tag.name
+          }}</span>
         </div>
         <div>
           <router-link
@@ -38,5 +40,14 @@ export default {
 };
 </script>
 
-<style>
+<style lang='scss' scoped>
+.col-3 {
+  padding: 20px;
+  .carta {
+    margin: 1px solid black;
+    border-radius: 10px;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+    min-height: 300px;
+  }
+}
 </style>
