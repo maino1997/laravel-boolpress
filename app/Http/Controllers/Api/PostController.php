@@ -14,8 +14,8 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        $posts = Post::where('is_published', 1)->with('user', 'category', 'tags')->get();
+    {   //Con il paginate la chiamata API si aspetta un parametro page passato in querystring 
+        $posts = Post::where('is_published', 1)->with('user', 'category', 'tags')->paginate(4);
         return response()->json($posts);
     }
 
