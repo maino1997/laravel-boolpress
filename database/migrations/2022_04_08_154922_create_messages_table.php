@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddIsPublishedColumnToPostsTable extends Migration
+class CreateMessagesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,11 @@ class AddIsPublishedColumnToPostsTable extends Migration
      */
     public function up()
     {
-        Schema::table('posts', function (Blueprint $table) {
-            $table->boolean('is_published')->default(false);
+        Schema::create('messages', function (Blueprint $table) {
+            $table->id();
+            $table->string('mail');
+            $table->text('message');
+            $table->timestamps();
         });
     }
 
@@ -25,8 +28,6 @@ class AddIsPublishedColumnToPostsTable extends Migration
      */
     public function down()
     {
-        Schema::table('posts', function (Blueprint $table) {
-            $table->dropColumn('is_published');
-        });
+        Schema::dropIfExists('messages');
     }
 }

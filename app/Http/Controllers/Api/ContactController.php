@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use App\Mail\ContactMail;
+use App\Models\Message;
 
 class ContactController extends Controller
 {
@@ -29,6 +30,10 @@ class ContactController extends Controller
         if ($validate->fails()) {
             return response()->json(['errors' => $validate->errors()]);
         }
+
+        $message = new Message();
+        $message->fill($data);
+        $message->save();
 
         $mail = new ContactMail($data);
 
